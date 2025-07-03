@@ -6,46 +6,59 @@ Projeto de robô seguidor de linha baseado em Arduino, batizado de **Pussycat** 
 
 ## 🧠 Funcionalidades
 
-- Detecção de linha com 3 sensores IR (esquerda, centro, direita)
-- Ajuste dinâmico de curvas à esquerda e à direita
-- Controle de velocidade com PWM para maior precisão nas curvas
-- Modo de calibração para leitura dos sensores
-- Estrutura compatível com ponte H (ex: L298N)
+- Leitura analógica de 3 sensores IR (esquerda, centro e direita)
+- Decisão de movimento baseada em leitura de intensidade da linha
+- Curvas automáticas para direita e esquerda com controle individual de motores
+- Controle de velocidade por PWM
+- Comandos simples: frente, virar direita, virar esquerda e parar
 
 ---
 
 ## ⚙️ Componentes Utilizados
 
 - Arduino Uno (ou similar)
-- Driver Ponte H L298N
+- Ponte H L298N
 - 2 Motores DC com rodas
-- 3 Sensores Infravermelhos de reflexão
+- 3 Sensores Infravermelhos reflexivos
 - Protoboard e jumpers
-- Fonte de energia (ex: 2S Li-Ion ou pack de pilhas)
+- Fonte de alimentação (ex: Li-Ion 2S ou pack de pilhas)
 
 ---
 
-## 🔌 Esquema de Ligação (exemplo)
+## 🔌 Esquema de Ligação
 
-| Pino Arduino | Componente         |
-|--------------|--------------------|
-| A0           | Sensor direito     |
-| A1           | Sensor central     |
-| A2           | Sensor esquerdo    |
-| 2,3          | IN1/IN2 (motor A)  |
-| 4,5          | IN3/IN4 (motor B)  |
-| 9            | ENA (PWM motor A)  |
-| 10           | ENB (PWM motor B)  |
+| Pino Arduino | Componente            |
+|--------------|------------------------|
+| A0           | Sensor direito         |
+| A1           | Sensor central         |
+| A2           | Sensor esquerdo        |
+| 6            | IN1 (motor A)          |
+| 3            | IN2 (motor A)          |
+| 5            | IN3 (motor B)          |
+| 9            | IN4 (motor B)          |
+
+> O controle de velocidade é feito diretamente via `analogWrite()` nos pinos dos motores.
 
 ---
 
 ## 🛠️ Instalação e Uso
 
-1. Conecte todos os componentes conforme o esquema acima.
-2. Abra o arquivo `.ino` no Arduino IDE.
+1. Monte os componentes conforme o esquema acima.
+2. Abra o código `.ino` no Arduino IDE.
 3. Selecione a placa correta (ex: **Arduino Uno**) e a porta COM.
 4. Carregue o código na placa.
-5. Coloque o carrinho sobre uma linha preta com fundo branco e **divirta-se!**
+5. Posicione o carrinho sobre uma linha preta com fundo branco.
+6. Ligue a fonte e **divirta-se observando o carrinho seguir a linha!**
+
+---
+
+## 💡 Lógica de Decisão
+
+```cpp
+Se centro detectar a linha e laterais não → andar pra frente
+Se direita detectar linha → virar à direita
+Se esquerda detectar linha → virar à esquerda
+```
 
 ---
 
@@ -58,6 +71,6 @@ Este projeto é uma homenagem ao icônico carro **Pussycat** da personagem **Pen
 
 ## 📄 Licença
 
-Este projeto é de código aberto e pode ser usado livremente para fins educacionais ou pessoais. Contribuições são bem-vindas!
+Este projeto é open-source e pode ser utilizado livremente para fins educacionais e pessoais. Sugestões, melhorias e forks são super bem-vindos!
 
 ---
